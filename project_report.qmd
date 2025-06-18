@@ -1,0 +1,96 @@
+---
+title: "Pandemic Flu Simulation"
+author: "Nathan Kurtz-Enko"
+format: pdf
+toc: true
+---
+
+# Abstract
+
+- Problem
+
+- Previous approaches
+
+- Novelty
+
+- Key findings
+
+# Background
+
+- Define the scope and significance of flu pandemics.
+
+- Briefly introduce modeling approaches, especially the SIR model.
+
+## History
+
+- State the purpose of the review: to explore how SIR-based models incorporate covariates such as altitude, obesity, and solar radiation.
+
+- Overview of major flu pandemics (e.g., 1918, 2009 H1N1).
+
+- Transmission dynamics and public health impact.
+
+- Role of environmental and demographic factors in flu spread.
+
+## Modeling
+
+- Description of the basic SIR framework and its assumptions.
+
+- Extensions: SEIR, age-structured, spatially explicit models.
+
+- Strengths and limitations in modeling flu pandemics.
+
+- Case studies using SIR models for H1N1, SARS, or seasonal influenza.
+
+- Integration with real-world data: mobility, vaccination, and intervention strategies.
+
+- Use of stochastic vs. deterministic approaches.
+
+## Covariates
+
+### Altitude
+
+- Impact of altitude on viral transmission and host susceptibility.
+
+- Studies linking high-altitude regions to delayed or reduced flu spread.
+
+### Obesity
+
+- Obesity as a risk factor for flu severity and transmission.
+
+- How models account for population-level obesity rates.
+
+### Solar Radiation
+
+- Influence of UV radiation on virus viability and immune response.
+
+- Seasonal patterns and their incorporation into predictive models.
+
+# Method
+
+- Data sources: WHO, CDC, climate databases, demographic surveys.
+
+- Statistical and computational techniques for integrating covariates.
+
+- Challenges in parameter estimation and model validation.
+
+- Results: data visualization and tabulation, and implications.
+
+# Discussion
+
+## Future Work
+
+- Underexplored covariates or regions.
+
+- Need for interdisciplinary models combining epidemiology, climatology, and public health.
+
+- Potential of machine learning to enhance traditional SIR frameworks.
+
+## Conclusions
+
+- Summary of key findings.
+
+- Implications for pandemic preparedness and policy.
+
+- Call for more nuanced, data-rich modeling approaches.
+
+# References
