@@ -3,6 +3,9 @@ title: "Pandemic Flu Simulation"
 author: "Nathan Kurtz-Enko"
 format: pdf
 toc: true
+echo: false
+warning: false
+message: false
 ---
 
 # Abstract
@@ -17,9 +20,9 @@ toc: true
 
 # Background
 
-- Define the scope and significance of flu pandemics.
+Understanding the behavior of the spread of infectious disease, like flu pandemics, is critical for advising and informing policy making. For example, studying behavior of virus transmission and recovery rates allows health professional and policymakes to define how much antiviral medication should be at hand to reduce the likelihood of outbreaks, the importance of vaccination to contain spread, and other measure to curtail an outbreak. Furthermore, being able to communicate the results of an infectious disease outbreak is very important. 
 
-- Briefly introduce modeling approaches, especially the SIR model.
+There are a number of models which have been used to describe the spread of virus, such as the flu, COVID-19, and others, which have reached pandemic status. SIR (susceptible-infected-recovered) and SEIR (susceptible-exposed-infected-recovered) are two deterministic models that have been used to describe pandemic flu and other viruses with success. Metapopulation stochastic models are, as the name implies, a stochastic alternative that have also successful described the behavior of infectious disease spread. Each has its pros and cons, which will be discussed later in this paper.
 
 ## History
 
@@ -33,15 +36,31 @@ toc: true
 
 ## Modeling
 
-- Description of the basic SIR framework and its assumptions.
+As previously mentioned, there are three common approaches to modeling this type of system: SIR, SEIR, and metapopulation models. We will begin by discussing the SIR model because it is relatively simple, yet also flexible, and it will establish a good foundation from which to discuss subsequent techniques.
 
-- Extensions: SEIR, age-structured, spatially explicit models.
+The SIR model categorizes a population into three groups: susceptible, infected, and recovered. The rate of change of each of these groups is defined used differential equation, and we can account for mortality and birth rates in their definitions.
+
+$$
+\begin{aligned}
+\frac{dS}{dt} =& \delta - \frac{\beta \times S \times I}{N} - \mu \times S \\
+\frac{dI}{dt} =& \frac{\beta \times S \times I}{N} - (\gamma + \mu) \times I \\
+\frac{dR}{dt} =& \gamma \times I - \mu \times R
+\end{aligned}
+$$
+
+Here, $S$, $I$, $R$ stand for the susceptible, infected, and recovered groups respectively. The population is denoted by $N$, and the rates of transmission, recovery, mortality, and birth are denoted by $\beta$, $\gamma$, $\mu$, and $\delta$. 
+
+The outbreak status is described by the reproduction ratio, which is the ratio between the transmisison rate and recovery rates. When $\beta / \gamma > 1$, more people are becoming infected than are recovering, hence the system is in a state of outbreak. And, supposing that there is some percentage of the population that is already vaccinated (i.e., already in the recovered group), this ratio becomes $(\beta \times S(0))/(\gamma \times N)$, where $S(0)$ is the number of people in the susceptible group at time $t=0$.
+
+These facts make it easy to define different transmission, recovery, and vaccination population and rate targets to avoid a pandemic outbreak. Hence, the SIR is a simple model, but very effective at communicate clear actionable results to policy makers and authority figures.
+
+The SEIR model is an extension of the SIR model, and it categorizes a population into four groups: susceptible, exposed, infected, and recovered. Mathematically, it is very similar to the SIR model, with an additional differential equation dedicated to the exposed group. For brevity, see others' work to describe this model. Additionally, there are more extensions to this model that are not described for brevity.
+
+The metapopulation stochastic model relies on randomness to model the spread of infectious diseases.
 
 - Strengths and limitations in modeling flu pandemics.
 
 - Case studies using SIR models for H1N1, SARS, or seasonal influenza.
-
-- Integration with real-world data: mobility, vaccination, and intervention strategies.
 
 - Use of stochastic vs. deterministic approaches.
 
