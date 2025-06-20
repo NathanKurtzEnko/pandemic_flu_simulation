@@ -6,6 +6,7 @@ toc: true
 echo: false
 warning: false
 message: false
+bibliography: references.bib
 ---
 
 # Abstract
@@ -22,17 +23,45 @@ message: false
 
 Understanding the behavior of the spread of infectious disease, like flu pandemics, is critical for advising and informing policy making. For example, studying behavior of virus transmission and recovery rates allows health professional and policymakes to define how much antiviral medication should be at hand to reduce the likelihood of outbreaks, the importance of vaccination to contain spread, and other measure to curtail an outbreak. Furthermore, being able to communicate the results of an infectious disease outbreak is very important. 
 
-There are a number of models which have been used to describe the spread of virus, such as the flu, COVID-19, and others, which have reached pandemic status. SIR (susceptible-infected-recovered) and SEIR (susceptible-exposed-infected-recovered) are two deterministic models that have been used to describe pandemic flu and other viruses with success. Metapopulation stochastic models are, as the name implies, a stochastic alternative that have also successful described the behavior of infectious disease spread. Each has its pros and cons, which will be discussed later in this paper.
+There are a number of models which have been used to describe pandemic viruses (e.g., flu, COVID-19, ebola, etc.). SIR (susceptible-infected-recovered) and SEIR (susceptible-exposed-infected-recovered) are two deterministic models that have been used to describe pandemic flu and other viruses with success. Metapopulation stochastic models are, as the name implies, a stochastic alternative that have also successfully described the spreading behavior of infectious diseases. Each has its advantages and disadvantages, which will be discussed later in this paper.
 
-## History
+## Literature Review
 
-- State the purpose of the review: to explore how SIR-based models incorporate covariates such as altitude, obesity, and solar radiation.
+Many researchers studying the spread of infectious disease explicitly cite the 1918 influenza outbreak [@berkessel2021social; @germann2006mitigation; @johnson2002spanishflu] as a motivating factor for their world. In the case of @johnson2002spanishflu, the objective was to review pervious records and data to verify morbitity of that pandemic, and the authors made the observation that each time the statistics are review, the total deaths from the pandemic seem to increase. In the 1920s, the record was approximately 21.5 million deaths; in 1991, this was updated to 24.7-39.3 million; @johnson2002spanishflu estimated the death toll is on the order of 50 million but the authors do not make this claim definitively. Instead, they allow for speculation on higher records in future estimates because there are many places affected by the 1918 influenza for which we do not have any data.
+
+Clearly, the capacity for large-scale damage from pandemic infectious disease outbreaks is a very real threat. Hence, understanding how these things spread and what impact different mitigation strategies have on the rate of spread and severity of illness is critical. 
+
+Early research on modeling infectious diseases goes back to 1980 Soviet Russia. Much of that work is relatively inaccessible due to the fact that it is written in Russian, but other European and American scientists from the era have referenced that work [@longini1986global]. These early models partitioned populations into a number of sub-groups, and described the change in size of each group and movement of individuals between groups using differential equations. Today, these are referred to as SIR, SEIR, and other derivatives.
+
+Initial reactions to these determinsitic models was skeptical, and multiple reasons can be cited. First, Russian scientists were applying these models to Russian cities to model the interaction between individuals within and between cities. But, many of the areas studied are relatively far from each other and relatively isolated, hence the applicability of these models on a global scale was not considered robust [@longini1986global]. Furthermore, for the time, these models and the algorithms required to use them were computationally expensive. @longini1986global note the impracticality of applying these models, stating that over 90% of time spent analyzing infectious disease spread is dedicated to running the algorithms themselves.
+
+Today, high-performance computing is readily available, so the application of deterministic differential equation models is straight-forward, and stochastic simulation and other simulation techniques have become popular. 
+
+@colizza2007global, @cooper2006delaying, @ferguson2005containment, @germann2006mitigation, @tan2021stochastic all used some stochastic process to model the spread of influenza or other infectious disease as well as the impact of mitigation strategies. @colizza2007global found that large-scale application of prophylaxis antiviral agents could successfully contain a pandemic H5N1 influenza given a viral reproduction ratio of 1.9 or lower. @cooper2006delaying found that only significant air travel restrictions could delay the spread of pandemic influenza, but not contain an epidemic altogether. @germann2006mitigation agreed with the previously stated positions and also found that rapid and preferential vaccination of children could contain an outbreak when the reproduction ratio of influenza is at or below 1.9.
+
+Furthermore, some have explored the impact of geographic variables such as altitude on incidence rates and severity of illness [@arias2021altitude; @stephens2021altitude]. It was found that above 1000 meters above sea level, incidence rates and severity for infectious disease decline. 
+
+The purpose of this paper will be to simulate pandemic flu spread and identify critical thresholds for covariates such as altitude and solar radiation in minimizing the risk of a severe outbreak.
 
 - Overview of major flu pandemics (e.g., 1918, 2009 H1N1).
 
 - Transmission dynamics and public health impact.
 
 - Role of environmental and demographic factors in flu spread.
+
+
+- Impact of altitude on viral transmission and host susceptibility.
+
+- Studies linking high-altitude regions to delayed or reduced flu spread.
+
+- Obesity as a risk factor for flu severity and transmission.
+
+- How models account for population-level obesity rates.
+
+- Influence of UV radiation on virus viability and immune response.
+
+- Seasonal patterns and their incorporation into predictive models.
+
 
 ## Modeling
 
@@ -63,26 +92,6 @@ The metapopulation stochastic model relies on randomness to model the spread of 
 - Case studies using SIR models for H1N1, SARS, or seasonal influenza.
 
 - Use of stochastic vs. deterministic approaches.
-
-## Covariates
-
-### Altitude
-
-- Impact of altitude on viral transmission and host susceptibility.
-
-- Studies linking high-altitude regions to delayed or reduced flu spread.
-
-### Obesity
-
-- Obesity as a risk factor for flu severity and transmission.
-
-- How models account for population-level obesity rates.
-
-### Solar Radiation
-
-- Influence of UV radiation on virus viability and immune response.
-
-- Seasonal patterns and their incorporation into predictive models.
 
 # Method
 
