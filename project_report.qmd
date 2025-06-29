@@ -4,6 +4,7 @@ author: "Nathan Kurtz-Enko"
 format: pdf
 toc: true
 echo: false
+eval: false
 warning: false
 message: false
 bibliography: references.bib
@@ -67,37 +68,198 @@ These facts make it easy to define different transmission, recovery, and vaccina
 
 # Method
 
-This analysis is done using the R programming language, and relies on tools and data from Epiverse-TRACE, a framework of packages in the R programming language dedicated to epidemiological study.
+Using Epiverse-TRACE, RECONhub, and Epiforecasts suites of tools, and the R programming language [@dplyr2025manipulation; @purrr2025functional; @purrr2025functional; @tidyr2025tidy; @readr2024rectangular; @ggplot22016elegant; @epiparameter2025classes; @epidemics2025composable; @finalsize2025calculate; @cdcfluview2022retrieve; @socialmixr2025social].
 
 ```{r}
 # renv::install("cleanepi")
 # renv::install("epiparameter")
-# renv::install("epiparameterDB")
 # renv::install("cfr")
 # renv::install("epichains")
 # renv::install("epidemics", repos = 'https://epiverse-trace.r-universe.dev')
 # renv::install("vaccineff")
+# renv::install("socialmixr")
+# renv::install("finalsize")
+# renv::install("hrbrmstr/cdcfluview")
 # renv::install("outbreaks")
-renv::status()
-renv::snapshot()
-library(epiparameterDB)
+# renv::install("dplyr")
+# renv::install("tidyr")
+# renv::install("ggplot2")
+# renv::status()
+# renv::snapshot()
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(readr)
+library(ggplot2)
+library(epiparameter)
 library(epidemics)
-library(outbreaks)
+library(cdcfluview)
+library(socialmixr)
+library(finalsize)
 ```
 
 ## Read & Describe Case Data
 
-## Estimate Parameters
+USA contact data [@breen2022novel].
 
-## Simulate Transmission
+```{r}
+usa_files <- list.files(path = "data/predictions", pattern = ".rds$", full.names = TRUE) 
+usa_data <- map(usa_files, read_rds, .progress = TRUE) 
+usa_contacts <- bind_rows(map(usa_data, \(x) {x[[2]]}, .progress = TRUE))
+usa_params <- bind_rows(map(usa_data, \(x) {x[[1]]}, .progress = TRUE))
+```
 
--   Data sources: WHO, CDC, climate databases, demographic surveys.
+Build contact matrix.
 
--   Statistical and computational techniques for integrating covariates.
+```{r}
+readRDS("data/intermediatasdfsafdsae/")
+usa_demography <- ungroup(usa_contacts) |>
+  reframe(population = n(), .by = ".ego_age") |>
+  mutate(proportion = population / sum(population))
+usa_matrix <- prop.table(with(usa_contacts, table(.ego_age, .alter_age)))
 
--   Challenges in parameter estimation and model validation.
+contact_data <- contact_matrix(
+  survey = polymod,
+  countries = "United Kingdom",
+  age.limits = c(0, 20, 40),
+  symmetric = TRUE
+)
+contact_matrix <- t(contact_data$matrix)
+demography <- contact_data$demography$population
+names(demography) <- rownames(contact_matrix)
+```
 
--   Results: data visualization and tabulation, and implications.
+Define initial conditions.
+
+```{r}
+initial_i <- 1e-6
+initial_conditions <- c(
+  S = 1 - initial_i, E = 0, I = initial_i, R = 0, V = 0
+)
+initial_conditions <- rbind(
+  initial_conditions,
+  initial_conditions,
+  initial_conditions
+)
+rownames(initial_conditions) <- rownames(contact_matrix)
+```
+
+Estimte population data/demographics.
+
+```{r}
+population_data <- population(
+  name = "UK",
+  contact_matrix = contact_matrix,
+  demography_vector = demography,
+  initial_conditions = initial_conditions
+)
+```
+
+Define intervention measures.
+
+```{r}
+close_schools <- intervention(
+  type = "contacts",
+  time_begin = 200, # Days
+  time_end = 260, # Also days
+  reduction = matrix(c(0.5, 0.01, 0.01))
+)
+```
+
+Estimate paramters.
+
+```{r}
+# Get a table of all available parameters
+flu_params <- parameter_tbl(
+  multi = epiparameter_db(), 
+  disease = "Influenza"
+)
+# Get most recent parameters for other investigation
+incubation_period <- epiparameter_db(
+  disease = "Influenza",
+  epi_name = "incubation_period",
+  author = "Virlogeux",
+  subset = sample_size > 250, 
+  single_epiparameter = TRUE
+)
+serial_interval <- epiparameter_db(
+  disease = "Influenza",
+  epi_name = "serial_interval",
+  single_epiparameter = TRUE
+)
+generation_time <- epiparameter_db(
+  disease = "Influenza",
+  epi_name = "generation_time",
+  single_epiparameter = TRUE
+)
+```
+
+```{r}
+flu_ilinet <- ilinet(region = "national")
+str(flu_ilinet)
+lm(log(ilitotal) ~ week, data = filter(flu_ilinet, week < 8))
+mutate(flu_ilinet, delta = c(0, diff(ilitotal))) |>
+  filter(delta > 0) |>
+  ggplot() +
+  geom_density(mapping = aes(x = delta, fill = year, group = year), alpha = 0.5) +
+  scale_fill_viridis_c()
+```
+
+```{r}
+infectious_period <- 7 # days
+incubation_period <- incubation_period$summary_stats$mean # days
+
+R_0 <- 1.5 # Reproduction ratio
+beta <- R_0 / infectious_period # Transmission rate
+alpha <- 1 / incubation_period # Infection rate
+gamma <- 1 / infectious_period # Recovery rate
+```
+
+Simulate epidemic
+
+```{r}
+base_output <- model_default(
+  population = population_data,
+  transmission_rate = beta,
+  infectiousness_rate = alpha,
+  recovery_rate = gamma,
+  time_end = 600, # Days 
+  increment = 1.0 # Also days
+)
+intervention_output <- model_default(
+  population = population_data,
+  transmission_rate = beta,
+  infectiousness_rate = alpha,
+  recovery_rate = gamma,
+  intervention = list(contacts = close_schools),
+  time_end = 600, # Days 
+  increment = 1.0 # Also days
+)
+```
+
+Analyze results.
+
+```{r}
+vis_infection <- function(x) {
+  plt <- ggplot(data = x) +
+    geom_point(mapping = aes(x = time, y = value, color = compartment)) +
+    facet_wrap(
+      vars(demography_group), 
+      ncol = 1,
+      labeller = labeller(demography_group = \(x) paste("Age range:", x))
+    ) +
+    theme_minimal() +
+    scale_color_viridis_d() +
+    labs(
+      title = "Base Infection Behavior",
+      x = "Time (days)", y = "Infected Individuals",
+      color = "Infection State"
+    )
+  return(plt)
+}
+vis_infection(base_output)
+vis_infection(intervention_output)
+```
 
 # Discussion
 
@@ -116,8 +278,6 @@ library(outbreaks)
 -   Implications for pandemic preparedness and policy.
 
 -   Call for more nuanced, data-rich modeling approaches.
-
-# References
 
 # Old Work
 The metapopulation stochastic model relies on both partitioning the population into sub-groups, and also randomness to model the spread of infectious diseases. @apolloni2014metapopulation describes this approach in great detail.
@@ -151,3 +311,5 @@ $$
 -   Case studies using SIR models for H1N1, SARS, or seasonal influenza.
 
 -   Use of stochastic vs. deterministic approaches.
+
+# References
