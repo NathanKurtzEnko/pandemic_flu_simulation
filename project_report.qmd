@@ -62,13 +62,13 @@ $$
 
 Here, $S$, $I$, $R$ stand for the susceptible, infected, and recovered groups respectively. The population is denoted by $N$, and the rates of transmission, recovery, mortality, and birth are denoted by $\beta$, $\gamma$, $\mu$, and $\delta$.
 
-The outbreak status is described by the reproduction ratio, which is the ratio between the transmisison rate and recovery rate. When $\beta / \gamma > 1$, more people are becoming infected than are recovering, hence the system is in a state of outbreak. And, supposing that there is some percentage of the population that is already vaccinated (i.e., already in the recovered group), this ratio becomes $(\beta \times S(0))/(\gamma \times N)$, where $S(0)$ is the number of people in the susceptible group at time $t=0$.
+The outbreak status is described by the reproduction ratio, $R_0$, which is the ratio between the transmisison rate and recovery rate. When $R_0 = \beta / \gamma > 1$, more people are becoming infected than are recovering, hence the system is in a state of outbreak. And, supposing that there is some percentage of the population that is already vaccinated (i.e., already in the recovered group), this ratio becomes $(\beta \times S(0))/(\gamma \times N)$, where $S(0)$ is the number of people in the susceptible group at time $t=0$.
 
 These facts make it easy to define different transmission, recovery, and vaccination target rates to avoid a significant outbreak. Hence, the SIR is a simple model, but very effective at clearly communicating actionable results to policy makers and authority figures.
 
 # Method
 
-Using Epiverse-TRACE, RECONhub, and Epiforecasts suites of tools, and the R programming language [@dplyr2025manipulation; @purrr2025functional; @purrr2025functional; @tidyr2025tidy; @readr2024rectangular; @ggplot22016elegant; @epiparameter2025classes; @epidemics2025composable; @finalsize2025calculate; @cdcfluview2022retrieve; @socialmixr2025social].
+In this analysis, we are using Epiverse-TRACE [@epiparameter2025classes; @epidemics2025composable; @finalsize2025calculate], Epiforecasts [@socialmixr2025social], Tidyverse tools [@dplyr2025manipulation; @purrr2025functional; @purrr2025functional; @tidyr2025tidy; @readr2024rectangular; @ggplot22016elegant], and other tools [@cdcfluview2022retrieve] in the R programming language. 
 
 ```{r}
 # renv::install("cleanepi")
@@ -86,38 +86,41 @@ Using Epiverse-TRACE, RECONhub, and Epiforecasts suites of tools, and the R prog
 # renv::install("ggplot2")
 # renv::status()
 # renv::snapshot()
+# renv::restore()
+# Tidyverse tools
 library(dplyr)
 library(tidyr)
 library(purrr)
 library(readr)
 library(ggplot2)
+# Epiverse-TRACE tools
+library(finalsize)
 library(epiparameter)
 library(epidemics)
-library(cdcfluview)
+# Epiforecasts tools
 library(socialmixr)
-library(finalsize)
+# Other tools
+library(cdcfluview)
 ```
 
 ## Read & Describe Case Data
 
-USA contact data [@breen2022novel].
+@breen2022novel collected contact data across the United States of America for various age groups. This data serves as the basis for defining key parameters related to the spread of disease for different demographics.
 
 ```{r}
+# Load contact data
 usa_files <- list.files(path = "data/predictions", pattern = ".rds$", full.names = TRUE) 
 usa_data <- map(usa_files, read_rds, .progress = TRUE) 
 usa_contacts <- bind_rows(map(usa_data, \(x) {x[[2]]}, .progress = TRUE))
 usa_params <- bind_rows(map(usa_data, \(x) {x[[1]]}, .progress = TRUE))
-```
 
-Build contact matrix.
+# Visualize contact data
 
-```{r}
-readRDS("data/intermediatasdfsafdsae/")
+# Build a contact matrix
 usa_demography <- ungroup(usa_contacts) |>
   reframe(population = n(), .by = ".ego_age") |>
   mutate(proportion = population / sum(population))
 usa_matrix <- prop.table(with(usa_contacts, table(.ego_age, .alter_age)))
-
 contact_data <- contact_matrix(
   survey = polymod,
   countries = "United Kingdom",
@@ -129,9 +132,12 @@ demography <- contact_data$demography$population
 names(demography) <- rownames(contact_matrix)
 ```
 
-Define initial conditions.
+State the total population from the contact data, and provide an estimate for the total population of the United States of America for the age groups in the contact data. 
+
+Define the initial conditions for infection. Specify why these conditions were chosen and provide a citation if possible.
 
 ```{r}
+# Define initial conditions
 initial_i <- 1e-6
 initial_conditions <- c(
   S = 1 - initial_i, E = 0, I = initial_i, R = 0, V = 0
@@ -142,11 +148,8 @@ initial_conditions <- rbind(
   initial_conditions
 )
 rownames(initial_conditions) <- rownames(contact_matrix)
-```
 
-Estimte population data/demographics.
-
-```{r}
+# Create the population object
 population_data <- population(
   name = "UK",
   contact_matrix = contact_matrix,
@@ -155,9 +158,10 @@ population_data <- population(
 )
 ```
 
-Define intervention measures.
+We are interested in the amount of solar radiation and the elevation that will effectively reduce the spread of the illness. Specify the rates of reduction for the different intervention measures and provide citation for those.
 
 ```{r}
+# Define intervention measures
 close_schools <- intervention(
   type = "contacts",
   time_begin = 200, # Days
@@ -166,15 +170,10 @@ close_schools <- intervention(
 )
 ```
 
-Estimate paramters.
+Additionally, we are deriving certain parameters about flu spread from case data collected from @cdcfluview2022retrieve, and we are using parameters defined in literature which have been collected and summarized in @epiparameter2025classes. Discuss the values that we have arrived at and the method for achieving them.
 
 ```{r}
-# Get a table of all available parameters
-flu_params <- parameter_tbl(
-  multi = epiparameter_db(), 
-  disease = "Influenza"
-)
-# Get most recent parameters for other investigation
+# Get some flu parameters from Epiverse-TRACE
 incubation_period <- epiparameter_db(
   disease = "Influenza",
   epi_name = "incubation_period",
@@ -192,32 +191,30 @@ generation_time <- epiparameter_db(
   epi_name = "generation_time",
   single_epiparameter = TRUE
 )
-```
 
-```{r}
-flu_ilinet <- ilinet(region = "national")
-str(flu_ilinet)
-lm(log(ilitotal) ~ week, data = filter(flu_ilinet, week < 8))
-mutate(flu_ilinet, delta = c(0, diff(ilitotal))) |>
+# Derive other parameters from CDC FluView case data
+flu_cases <- ilinet(region = "national")
+str(flu_cases)
+lm(log(ilitotal) ~ week, data = filter(flu_cases, week < 8))
+mutate(flu_cases, delta = c(0, diff(ilitotal))) |>
   filter(delta > 0) |>
   ggplot() +
   geom_density(mapping = aes(x = delta, fill = year, group = year), alpha = 0.5) +
   scale_fill_viridis_c()
-```
 
-```{r}
+# Define key parameters for simulation
 infectious_period <- 7 # days
 incubation_period <- incubation_period$summary_stats$mean # days
-
 R_0 <- 1.5 # Reproduction ratio
 beta <- R_0 / infectious_period # Transmission rate
 alpha <- 1 / incubation_period # Infection rate
 gamma <- 1 / infectious_period # Recovery rate
 ```
 
-Simulate epidemic
+We are using a Susceptible-Exposed-Infected-Recovered-Vaccinated (SEIRV) model. We are comparing a base output in which there are no intervention measure taken with alternative outcomes in which particular interventions are done. The objective is control the spread of influenza and minimize the final size of the pandemic.
 
 ```{r}
+# Simulate pandemic
 base_output <- model_default(
   population = population_data,
   transmission_rate = beta,
@@ -235,11 +232,8 @@ intervention_output <- model_default(
   time_end = 600, # Days 
   increment = 1.0 # Also days
 )
-```
 
-Analyze results.
-
-```{r}
+# Visualizing and analyze the results
 vis_infection <- function(x) {
   plt <- ggplot(data = x) +
     geom_point(mapping = aes(x = time, y = value, color = compartment)) +
@@ -278,38 +272,5 @@ vis_infection(intervention_output)
 -   Implications for pandemic preparedness and policy.
 
 -   Call for more nuanced, data-rich modeling approaches.
-
-# Old Work
-The metapopulation stochastic model relies on both partitioning the population into sub-groups, and also randomness to model the spread of infectious diseases. @apolloni2014metapopulation describes this approach in great detail.
-
-Effectively, there are two layers to this mode. First, there is a social layer, which follows the SIR paradigm to a degree. Second, there is a spatial layer, which models the distribution of individuals in space as well as their mobility.
-
-For the social layer, we partition the population into two groups, $N_1=N\cdot\alpha$ and $N_2=N\cdot(1-\alpha)$, where $N$ is the population and $\alpha$ is the proportion of individuals in the first group.
-
-These groups interact, and we use a two-by-two contact matrix to define these interaction rates.
-
-$$
-C = \begin{pmatrix}
-\frac{p_1 q_1}{\alpha} & \frac{(1 - p_2) q_2}{\alpha} \\
-\frac{(1 - p_1) q_1}{\alpha} & \frac{p_2 q_2}{1 - \alpha}
-\end{pmatrix}
-$$
-
-Where $q_*$ is the contact rate of the group, and $p_*$ is the contact rate within a group.
-
-We use another two-by-two matrix to describe the secondary infections. Effectively, this next-generation matrix is a function of the contact matrix because each new case is produced by exposures from preceding contacts.
-
-$$
-R = \frac{\beta}{\mu} \begin{pmatrix}
-C_{11}\cdot\alpha & C_{12}\cdot\alpha \\
-C_{21}\cdot(1-\alpha) & C_{22}\cdot(1-\alpha)
-\end{pmatrix}
-$$
-
--   Strengths and limitations in modeling flu pandemics.
-
--   Case studies using SIR models for H1N1, SARS, or seasonal influenza.
-
--   Use of stochastic vs. deterministic approaches.
 
 # References
