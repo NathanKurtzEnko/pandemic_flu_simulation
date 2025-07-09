@@ -68,7 +68,7 @@ These facts make it easy to define different transmission, recovery, and vaccina
 
 # Method
 
-In this analysis, we are using Epiverse-TRACE [@epiparameter2025classes; @epidemics2025composable; @finalsize2025calculate], Epiforecasts [@socialmixr2025social], Tidyverse tools [@dplyr2025manipulation; @purrr2025functional; @purrr2025functional; @tidyr2025tidy; @readr2024rectangular; @ggplot22016elegant], and other tools [@cdcfluview2022retrieve] in the R programming language. 
+In this analysis, we are using Epiverse-TRACE [@epiparameter2025classes; @epidemics2025composable; @finalsize2025calculate], Epiforecasts [@socialmixr2025social], Tidyverse tools [@dplyr2025manipulation; @purrr2025functional; @purrr2025functional; @tidyr2025tidy; @readr2024rectangular; @ggplot22016elegant], and other tools [@cdcfluview2022retrieve; @tidycensus2025load] in the R programming language. 
 
 ```{r}
 # renv::install("cleanepi")
@@ -81,6 +81,7 @@ In this analysis, we are using Epiverse-TRACE [@epiparameter2025classes; @epidem
 # renv::install("finalsize")
 # renv::install("hrbrmstr/cdcfluview")
 # renv::install("outbreaks")
+# renv::install("tidycensus")
 # renv::install("dplyr")
 # renv::install("tidyr")
 # renv::install("ggplot2")
@@ -101,6 +102,7 @@ library(epidemics)
 library(socialmixr)
 # Other tools
 library(cdcfluview)
+library(tidycensus)
 ```
 
 ## Read & Describe Case Data
@@ -108,28 +110,46 @@ library(cdcfluview)
 @breen2022novel collected contact data across the United States of America for various age groups. This data serves as the basis for defining key parameters related to the spread of disease for different demographics.
 
 ```{r}
-# Load contact data
+# Load contact & population data
 usa_files <- list.files(path = "data/predictions", pattern = ".rds$", full.names = TRUE) 
 usa_data <- map(usa_files, read_rds, .progress = TRUE) 
 usa_contacts <- bind_rows(map(usa_data, \(x) {x[[2]]}, .progress = TRUE))
 usa_params <- bind_rows(map(usa_data, \(x) {x[[1]]}, .progress = TRUE))
+usa_population <- get_estimates(
+  geography = "state",
+  product = "characteristics",
+  variables = "POPESTIMATE",
+  breakdown = "AGE",
+  vintage = 2022
+)
 
-# Visualize contact data
 
 # Build a contact matrix
-usa_demography <- ungroup(usa_contacts) |>
-  reframe(population = n(), .by = ".ego_age") |>
-  mutate(proportion = population / sum(population))
-usa_matrix <- prop.table(with(usa_contacts, table(.ego_age, .alter_age)))
-contact_data <- contact_matrix(
-  survey = polymod,
-  countries = "United Kingdom",
-  age.limits = c(0, 20, 40),
-  symmetric = TRUE
+usa_matrix <- ungroup(usa_contacts) |>
+  reframe(
+    across(all_of(c("contacts", "lower", "upper")), sum), 
+    .by = c(".ego_age", ".alter_age")
+  ) |>
+  arrange(.ego_age, .alter_age) |>
+  pull(contacts) |>
+  matrix(nrow = 7, ncol = 7)
+# .ego_age is the age group and represents column names
+# .alter_age is the contact age group and represents row names
+rownames(usa_matrix) <- sort(unique(usa_contacts$`.alter_age`))
+colnames(usa_matrix) <- sort(unique(usa_contacts$`.ego_age`))
+
+# Build demography vector
+usa_population$age_group <- cut(
+  usa_population$AGE, 
+  breaks = c(0, 18, 25, 35, 45, 55, 65, 101), 
+  right = FALSE
 )
-contact_matrix <- t(contact_data$matrix)
-demography <- contact_data$demography$population
-names(demography) <- rownames(contact_matrix)
+usa_demography <- usa_population |>
+  reframe(value = sum(value), .by = "age_group") |>
+  arrange(age_group)
+usa_demography$age_group <- rownames(usa_matrix)
+usa_demography <- pull(usa_demography, value) |>
+  set_names(usa_demography$age_group)
 ```
 
 State the total population from the contact data, and provide an estimate for the total population of the United States of America for the age groups in the contact data. 
@@ -142,18 +162,17 @@ initial_i <- 1e-6
 initial_conditions <- c(
   S = 1 - initial_i, E = 0, I = initial_i, R = 0, V = 0
 )
-initial_conditions <- rbind(
-  initial_conditions,
-  initial_conditions,
-  initial_conditions
-)
-rownames(initial_conditions) <- rownames(contact_matrix)
+initial_conditions <- rownames(usa_matrix) |>
+  map(\(x) initial_conditions) |>
+  bind_rows() |>
+  as.matrix()
+rownames(initial_conditions) <- rownames(usa_matrix)
 
 # Create the population object
 population_data <- population(
-  name = "UK",
-  contact_matrix = contact_matrix,
-  demography_vector = demography,
+  name = "USA",
+  contact_matrix = usa_matrix,
+  demography_vector = usa_demography,
   initial_conditions = initial_conditions
 )
 ```
@@ -166,7 +185,7 @@ close_schools <- intervention(
   type = "contacts",
   time_begin = 200, # Days
   time_end = 260, # Also days
-  reduction = matrix(c(0.5, 0.01, 0.01))
+  reduction = rep(0.1, nrow(usa_matrix))
 )
 ```
 
