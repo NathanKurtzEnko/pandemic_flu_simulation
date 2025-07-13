@@ -15,7 +15,8 @@ Influenza and similar viruses represent a threat to populations across the globe
 
 # Introduction
 
-Understanding the spread of infectious diseases, like the flu, is critical for advising policy making with respect to public health and wellness. For example, studying the behavior of virus transmission and recovery rates allows health professionals and policymakes to define the quantity of antiviral agents that should be readily available, regions and demographics that should be prioritized for vaccination, and other strategies intended to prevent a pandemic. Furthermore, being able to communicate the results of an infectious disease model/simulation is very important, as this will facilitate the adoption of containment measures.
+Understanding the spread of infectious diseases, like the flu, is critical for advising policy making with respect to public health and wellness. For example, studying 
+the behavior of virus transmission and recovery rates allows health professionals and policymakes to define the quantity of antiviral agents that should be readily available, regions and demographics that should be prioritized for vaccination, and other strategies intended to prevent a pandemic. Furthermore, being able to communicate the results of an infectious disease model/simulation is very important, as this will facilitate the adoption of containment measures.
 
 Many researchers studying the spread of infectious diseases explicitly cite the 1918 influenza outbreak as a motivating factor for their work [@berkessel2021social; @germann2006mitigation; @johnson2002spanishflu; @valle2012behavior]. In the case of @johnson2002spanishflu and @patterson1991geography, the objective was to look back through previous records and data to verify morbitity of the 1918 pandemic. The authors made the observation that each time the statistics are reviewed, the total deaths from the pandemic seem to increase. In the 1920s, the record was approximately 21.5 million deaths; in 1991, @patterson1991geography updated the estimate to 24.7-39.3 million; most recently, @johnson2002spanishflu estimated the death toll is on the order of 50 million. However, @johnson2002spanishflu do not make this claim conclusively. Instead, they allow for future speculation of estimates because there were many places affected by the 1918 influenza outbreak for which we do not have any data or the means of estimating today.
 
@@ -58,7 +59,7 @@ Here, $S$, $I$, $R$ stand for the susceptible, infected, and recovered populatio
 The outbreak status is described by the reproduction ratio, $R_0$, which is the ratio between the transmisison rate and recovery rate. When $R_0 = \beta / \gamma > 1$, more people are becoming infected than are recovering, hence the system is in a state of outbreak. And, supposing that there is some percentage of the population that is already vaccinated (i.e., already in the recovered group), this ratio becomes:
 
 $$
-R_0(\beta \times S(0))/(\gamma \times N)$
+R_0(\beta \times S(0))/(\gamma \times N)
 $$
 
 Here, $S(0)$ is the number of people in the susceptible group at time $t=0$.
