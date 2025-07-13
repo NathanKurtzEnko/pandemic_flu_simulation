@@ -4,7 +4,6 @@ author: "Nathan Kurtz-Enko"
 format: pdf
 toc: true
 echo: false
-eval: false
 warning: false
 message: false
 bibliography: references.bib
@@ -22,9 +21,9 @@ bibliography: references.bib
 
 # Background
 
-Understanding the behavior of the spread of infectious disease, like flu pandemics, is critical for advising policy making with respect to public health and wellness. For example, studying the behavior of virus transmission and recovery rates allows health professionals and policymakes to define the quantity of antiviral agents that should be readily available, regions and demographics that should be prioritized for vaccination, and other strategies intended to prevent a pandemic. Furthermore, being able to communicate the results of an infectious disease outbreak model/simulation is very important as this will facilitate adoption of containment measures.
+Understanding the spread of infectious diseases, like the flu, is critical for advising policy making with respect to public health and wellness. For example, studying the behavior of virus transmission and recovery rates allows health professionals and policymakes to define the quantity of antiviral agents that should be readily available, regions and demographics that should be prioritized for vaccination, and other strategies intended to prevent a pandemic. Furthermore, being able to communicate the results of an infectious disease model/simulation is very important, as this will facilitate the adoption of containment measures.
 
-Many researchers studying the spread of infectious disease explicitly cite the 1918 influenza outbreak [@berkessel2021social; @germann2006mitigation; @johnson2002spanishflu] as a motivating factor for their work. In the case of @johnson2002spanishflu and @patterson1991geography, the objective was to look back through previous records and data to verify morbitity of the 1918 pandemic. The authors made the observation that each time the statistics are reviewed, the total deaths from the pandemic seem to increase. In the 1920s, the record was approximately 21.5 million deaths; in 1991, @patterson1991geography updated the estimate to 24.7-39.3 million; most recently, @johnson2002spanishflu estimated the death toll is on the order of 50 million. However, @johnson2002spanishflu does not make this claim definitively. Instead, he allows for speculation on different records in future estimates because there are many places affected by the 1918 influenza for which we do not have any data.
+Many researchers studying the spread of infectious diseases explicitly cite the 1918 influenza outbreak as a motivating factor for their work [@berkessel2021social; @germann2006mitigation; @johnson2002spanishflu; @valle2012behavior]. In the case of @johnson2002spanishflu and @patterson1991geography, the objective was to look back through previous records and data to verify morbitity of the 1918 pandemic. The authors made the observation that each time the statistics are reviewed, the total deaths from the pandemic seem to increase. In the 1920s, the record was approximately 21.5 million deaths; in 1991, @patterson1991geography updated the estimate to 24.7-39.3 million; most recently, @johnson2002spanishflu estimated the death toll is on the order of 50 million. However, @johnson2002spanishflu does not make this claim definitively. Instead, Johnson allows for speculation for future estimates because there are many places affected by the 1918 influenza outbreak for which we do not have any data or the means of estimating today.
 
 Clearly, the capacity for large-scale damage from infectious disease outbreaks is a very real threat. Hence, understanding how these things spread and the impact that different mitigation strategies have on the rate of spread and severity of illness is critical.
 
@@ -32,21 +31,21 @@ Clearly, the capacity for large-scale damage from infectious disease outbreaks i
 
 Infectious disease epidemic models have been the subject of study since the 1980s. It was Russian scientists that first began to implement models for estimating spread patterns of influenza and other viruses [@longini1986global]. Much of that work is relatively inaccessible due to the fact that it is written in Russian. Nonetheless, eventually their work made its way into academia across the globe.
 
-There are deterministic and stochastic approaches to modeling pandemic flu. However, early models were deterministic, and they described the movement of viruses using differential equations and partitioned populations into a number of subgroups. These are referred to as SIR (susceptible-infected-recovered), SEIR (susceptible-exposed-infected-recovered), and other derivatives.
+Generally, there are two approaches for modeling pandemic flu: deterministic or stochastic models. Early models were deterministic, and they described the movement of viruses using differential equations and partitioned populations into a number of subgroups. These are referred to as SIR (susceptible-infected-recovered), SEIR (susceptible-exposed-infected-recovered), and other derivatives.
 
-Initial reactions to these determinsitic models were skeptical for a few reasons. First, geographic regions being studied were relatively isolated, hence the ability to apply these models for global study was uncertain [@longini1986global]. Furthermore, for the time, these approaches were computationally expensive. @longini1986global noted that over 90% of time was dedicated to running the algorithms themselves. However, this is less of an issue now because high-performance computing is readily available.
+Initial reactions to these determinsitic models by academics were skeptical for a few reasons. First, geographic regions being studied were relatively isolated, hence the ability to apply these models for global study was uncertain [@longini1986global]. Furthermore, for the time, the models were computationally expensive. @longini1986global noted that over 90% of time was dedicated to running the algorithms themselves. However, this is less of an issue today because high-performance computing is readily available.
 
-While relatively old, these models, and similar derivatives, still have applications today. @valle2012behavior used a deterministic model to show that an individual's behavior will likely change in response to an outbreak; some individuals will adopt new behavior to protect themselves, thereby influencing the probability of transmission per contact. 
+While relatively old, these determinstic models still have applications today. @valle2012behavior used an SIR model to show that an individual's behavior will likely change in response to an outbreak; some individuals will adopt new behavior to protect themselves, thereby influencing the probability of transmission per contact. 
 
-More recently, stochastic models have become prevelant because they are able to capture more complex spreading patterns. @colizza2007global, @cooper2006delaying, @ferguson2005containment, @germann2006mitigation, @samsuzzoha2013parameter, and @tan2021stochastic all used some stochastic process to model the spread of influenza or other infectious disease, and analyze different mitigation strategies. @colizza2007global found that a large-scale application of prophylaxis antiviral agents could successfully contain a pandemic H5N1 influenza given a viral reproduction ratio of 1.9 or lower. @cooper2006delaying found that significant air travel restrictions could delay the spread of pandemic influenza, but not contain an epidemic altogether. The findings of @germann2006mitigation determined that rapid and preferential vaccination of children could contain an outbreak when the reproduction ratio of influenza is at or below 1.9.
+More recently, stochastic models have become prevelant because they are able to capture more complex spreading patterns. @colizza2007global, @cooper2006delaying, @ferguson2005containment, @germann2006mitigation, @samsuzzoha2013parameter, and @tan2021stochastic all used some stochastic process to model the spread of influenza or other infectious diseases and analyze different mitigation strategies. @colizza2007global found that a large-scale application of prophylaxis antiviral agents could successfully contain a pandemic H5N1 influenza given a viral reproduction ratio of 1.9 or lower. @cooper2006delaying found that significant air travel restrictions could delay the spread of influenza, but not contain an epidemic altogether. The findings of @germann2006mitigation determined that rapid and preferential vaccination of children could contain an outbreak when the reproduction ratio of influenza is at or below 1.9.
 
 Others have explored the relationship between geographic variables (e.g., altitude and solar radiation) and incidence rates for COVID-19, as well as severity of illness [@arias2021altitude; @stephens2021altitude]. @arias2021altitude concluded that above 1000 meters above sea level, incidence rates and severity for COVID-19 decline. Through analysis of public geographic and COVID-19 data, @stephens2021altitude determined that for increases of 495 meters in elevation above LA county, and for areas of equivalent population density, infection rates were 12.82%, 12.01%, and 11.72%. However, mortality rates were not statistically significantly different between high and low elevation areas. @stephens2021altitude notes that other environmental variables such as increased solar radiation, larger swings of high/low temperatures throughout the day, and long-term exposure to altitude hypoxia could explain these observed differences.
 
 Since influenza and similar viruses spread via aerosols, @sagripanti2007solar proposed solar radiation as a contributing factor to the seasonality of influenza. Specifically, the authors calculated the expected inactivation of influenza by UV radiation in several cities and different times of the year. They estimated that a full day of sunlight exposure will reduce influenza by 99% in regions at a similar latitude to Mexico City, and by 90% in regions at a similar latitude to Miami. However, @weber2008note note that the impact on survivability of influenza by humidity and temperature are as significant as solar radiation. Furthermore, it is unlikely that outdoor transmission is a significant mechanism for the spread of influenza because it is so sensitive to wide range of environmental variables.
 
-Regardless, it is clear that higher altitude, higher humidity/temperature, and higher solar radiation could theoretically influence the spread of pandemic influenza. The purpose of this paper will be to simulate pandemic flu spread and identify critical thresholds for these covariates in order to minimize the risk of a severe outbreak.
+Regardless, it is clear that higher altitude and higher solar radiation could theoretically influence the spread of influenza. The purpose of this paper will be to simulate pandemic flu spread and identify critical thresholds for these covariates in order to minimize the risk of a severe outbreak.
 
-## Modeling
+## Modeling Theory
 
 As previously mentioned, there are two very general approaches to simulating pandemic virus spread. We will be discussing the SIR model [@debarre_sir; @wb_deterministic] because it is relatively simple, and establishes a foundation for considering other approaches.
 
@@ -60,34 +59,27 @@ $$
 \end{aligned}
 $$
 
-Here, $S$, $I$, $R$ stand for the susceptible, infected, and recovered groups respectively. The population is denoted by $N$, and the rates of transmission, recovery, mortality, and birth are denoted by $\beta$, $\gamma$, $\mu$, and $\delta$.
+Here, $S$, $I$, $R$ stand for the susceptible, infected, and recovered populations respectively. The total population is denoted by $N$, and the rates of transmission, recovery, mortality, and birth are denoted by $\beta$, $\gamma$, $\mu$, and $\delta$.
 
 The outbreak status is described by the reproduction ratio, $R_0$, which is the ratio between the transmisison rate and recovery rate. When $R_0 = \beta / \gamma > 1$, more people are becoming infected than are recovering, hence the system is in a state of outbreak. And, supposing that there is some percentage of the population that is already vaccinated (i.e., already in the recovered group), this ratio becomes $(\beta \times S(0))/(\gamma \times N)$, where $S(0)$ is the number of people in the susceptible group at time $t=0$.
 
-These facts make it easy to define different transmission, recovery, and vaccination target rates to avoid a significant outbreak. Hence, the SIR is a simple model, but very effective at clearly communicating actionable results to policy makers and authority figures.
+These facts make it easy to define different transmission, recovery, and vaccination target rates to avoid a significant outbreak. Hence, the SIR is a simple model, but effective at clearly communicating actionable results to policy makers and authority figures.
 
 # Method
 
-In this analysis, we are using Epiverse-TRACE [@epiparameter2025classes; @epidemics2025composable; @finalsize2025calculate], Epiforecasts [@socialmixr2025social], Tidyverse tools [@dplyr2025manipulation; @purrr2025functional; @purrr2025functional; @tidyr2025tidy; @readr2024rectangular; @ggplot22016elegant], and other tools [@cdcfluview2022retrieve; @tidycensus2025load] in the R programming language. 
+In this analysis, we used Epiverse-TRACE [@epidemics2025composable; @epiparameter2025classes ;@finalsize2025calculate], Tidyverse [@dplyr2025manipulation; @purrr2025functional; @tidyr2025tidy; @readr2024rectangular; @ggplot22016elegant], and other tools [@cdcfluview2022retrieve; @tidycensus2025load; @knitr2025general] in the R programming language. The objective was to use contact and population estimates to simulate the spread of influenza in the United States of America.
 
 ```{r}
-# renv::install("cleanepi")
-# renv::install("epiparameter")
-# renv::install("cfr")
-# renv::install("epichains")
-# renv::install("epidemics", repos = 'https://epiverse-trace.r-universe.dev')
-# renv::install("vaccineff")
-# renv::install("socialmixr")
-# renv::install("finalsize")
-# renv::install("hrbrmstr/cdcfluview")
-# renv::install("outbreaks")
-# renv::install("tidycensus")
-# renv::install("dplyr")
-# renv::install("tidyr")
-# renv::install("ggplot2")
+# Double check project state
 # renv::status()
 # renv::snapshot()
 # renv::restore()
+# Install packages
+# renv::install(c("dplyr", "tidyr", "purrr", "readr", "ggplot2"))
+# renv::install(c("finalsize", "epiparameter"))
+# renv::install("epidemics", repos = 'https://epiverse-trace.r-universe.dev')
+# renv::install(c("tidycensus", "knitr"))
+
 # Tidyverse tools
 library(dplyr)
 library(tidyr)
@@ -98,23 +90,20 @@ library(ggplot2)
 library(finalsize)
 library(epiparameter)
 library(epidemics)
-# Epiforecasts tools
-library(socialmixr)
 # Other tools
-library(cdcfluview)
+library(knitr)
 library(tidycensus)
 ```
 
-## Read & Describe Case Data
+## Data
 
-@breen2022novel collected contact data across the United States of America for various age groups. This data serves as the basis for defining key parameters related to the spread of disease for different demographics.
+We used contact data collected by @breen2022novel for different age groups across the United States of America. Additionally, we accessed U.S. Census results from 2022 via @tidycensus2025load in order to estimate populations for each of the age groups defined by @breen2022novel. Census population estimates for contact data age groups were not provided by @tidycensus2025load. However, we aggregated the state-wide counts for all ages ranging from one to 100 in bins defined in the contact data. The data are displayed in @tbl-contacts and @tbl-demography.
 
 ```{r}
 # Load contact & population data
 usa_files <- list.files(path = "data/predictions", pattern = ".rds$", full.names = TRUE) 
 usa_data <- map(usa_files, read_rds, .progress = TRUE) 
 usa_contacts <- bind_rows(map(usa_data, \(x) {x[[2]]}, .progress = TRUE))
-usa_params <- bind_rows(map(usa_data, \(x) {x[[1]]}, .progress = TRUE))
 usa_population <- get_estimates(
   geography = "state",
   product = "characteristics",
@@ -122,7 +111,6 @@ usa_population <- get_estimates(
   breakdown = "AGE",
   vintage = 2022
 )
-
 
 # Build a contact matrix
 usa_matrix <- ungroup(usa_contacts) |>
@@ -152,12 +140,63 @@ usa_demography <- pull(usa_demography, value) |>
   set_names(usa_demography$age_group)
 ```
 
-State the total population from the contact data, and provide an estimate for the total population of the United States of America for the age groups in the contact data. 
+```{r}
+#| label: tbl-contacts
+#| tbl-cap: "USA National Contact Matrix"
+kable(usa_matrix)
+```
 
-Define the initial conditions for infection. Specify why these conditions were chosen and provide a citation if possible.
+```{r}
+#| label: tbl-demography
+#| tbl-cap: "USA National Population Estimates"
+tibble(`Age Group` = names(usa_demography), Population = usa_demography) |>
+  kable()
+```
+
+## Initial Conditions
+
+There are two approaches to defining initial conditions (e.g., number of members in each model sub-group at initialization, influenza spread parameters, etc.) for the model: define some reasonable values or derive values from current/historic flu data. For the sake of brevity, we will use the former approach and use values for rates discussed in literature. 
+
+@royanikbakht2018estimation provide multiple estimates for the basic reproduction ratio of influenza in the United states given 2017-2018 data. Specifically, using Maximum Likelhood Estimation, they estimate $R_0 = 1.8$ with a 95% confidence interval of $[1.78, 1.8]$. While this estimate is approaching seven years old, it should be sufficient for the purpose of this paper. Hence, we used this figure for our simulation.
+
+@virlogeux2015estimating provide an estimate for the incubation period of influenza. Specifically, they note that incubation period follows a Weibull distribution with $\text{shape} = 2.101$ and $\text{scale} = 3.839$. We used the expected value of the incubation period $E[\text{Incubation Period}] = \text{scale} \times \Gamma (1 + \frac{1}{\text{shape}}) = 3.400167 \text{ days}$. @tang2020estimation note that the inverse incubation period is equivalent to the infection rate, hence $\alpha = 0.2941032$.
+
+According to the CDC, the infectious period is about five to seven days typically. For the purpose of this paper, we assumed a worst case scenario and uesd an infectious period of seven days. @turincini2025impact states that the inverse of the mean infectious period is equivalent to the recovery rate, hence $\gamma = 0.1428571$.
+
+The final parameters are collected and dispayed in @tbl-params.
+
+```{r}
+incubation_params <- epiparameter_db(
+  disease = "influenza",
+  epi_name = "incubation period",
+  single_epiparameter = TRUE
+)
+incubation_period <- incubation_params$summary_stats$mean
+infectious_period <- 7
+R_0 <- 1.8 # Reproduction ratio
+alpha <- 1 / incubation_period # Infection rate
+gamma <- 1 / infectious_period # Recovery rate
+beta <- R_0 * gamma # Transmission rate
+```
+
+```{r}
+#| label: tbl-params
+#| tbl-cap: "Parameters for SEIRV Model"
+
+kable(
+  tibble(
+    Name = c("Reproduction Ratio", "Infection Rate", "Recovery Rate", "Transmission Rate"),
+    Symbol = c("$R_0$", "$\\alpha$", "$\\gamma$", "$\\beta$"),
+    Value = c(R_0, alpha, gamma, beta)
+  )
+)
+```
+
+In order for the flu to progress through a population, there must be some members in the infected group at the start of the simulation. So, we assumed that 0.0001% of the population is already infected. Furthermore, we assumed that this proportion of infected individuals was consistent across all age groups.  
 
 ```{r}
 # Define initial conditions
+n <- sum(usa_demography)
 initial_i <- 1e-6
 initial_conditions <- c(
   S = 1 - initial_i, E = 0, I = initial_i, R = 0, V = 0
@@ -177,7 +216,8 @@ population_data <- population(
 )
 ```
 
-We are interested in the amount of solar radiation and the elevation that will effectively reduce the spread of the illness. Specify the rates of reduction for the different intervention measures and provide citation for those.
+# Simulation Results
+
 
 ```{r}
 # Define intervention measures
@@ -187,47 +227,6 @@ close_schools <- intervention(
   time_end = 260, # Also days
   reduction = rep(0.1, nrow(usa_matrix))
 )
-```
-
-Additionally, we are deriving certain parameters about flu spread from case data collected from @cdcfluview2022retrieve, and we are using parameters defined in literature which have been collected and summarized in @epiparameter2025classes. Discuss the values that we have arrived at and the method for achieving them.
-
-```{r}
-# Get some flu parameters from Epiverse-TRACE
-incubation_period <- epiparameter_db(
-  disease = "Influenza",
-  epi_name = "incubation_period",
-  author = "Virlogeux",
-  subset = sample_size > 250, 
-  single_epiparameter = TRUE
-)
-serial_interval <- epiparameter_db(
-  disease = "Influenza",
-  epi_name = "serial_interval",
-  single_epiparameter = TRUE
-)
-generation_time <- epiparameter_db(
-  disease = "Influenza",
-  epi_name = "generation_time",
-  single_epiparameter = TRUE
-)
-
-# Derive other parameters from CDC FluView case data
-flu_cases <- ilinet(region = "national")
-str(flu_cases)
-lm(log(ilitotal) ~ week, data = filter(flu_cases, week < 8))
-mutate(flu_cases, delta = c(0, diff(ilitotal))) |>
-  filter(delta > 0) |>
-  ggplot() +
-  geom_density(mapping = aes(x = delta, fill = year, group = year), alpha = 0.5) +
-  scale_fill_viridis_c()
-
-# Define key parameters for simulation
-infectious_period <- 7 # days
-incubation_period <- incubation_period$summary_stats$mean # days
-R_0 <- 1.5 # Reproduction ratio
-beta <- R_0 / infectious_period # Transmission rate
-alpha <- 1 / incubation_period # Infection rate
-gamma <- 1 / infectious_period # Recovery rate
 ```
 
 We are using a Susceptible-Exposed-Infected-Recovered-Vaccinated (SEIRV) model. We are comparing a base output in which there are no intervention measure taken with alternative outcomes in which particular interventions are done. The objective is control the spread of influenza and minimize the final size of the pandemic.
