@@ -136,26 +136,6 @@
       "Maintainer": "Brian Ripley <Brian.Ripley@R-project.org>",
       "Repository": "CRAN"
     },
-    "MMWRweek": {
-      "Package": "MMWRweek",
-      "Version": "0.1.3",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Convert Dates to MMWR Day, Week, and Year",
-      "Date": "2020-04-22",
-      "Author": "Jarad Niemi <niemi@iastate.edu>",
-      "Maintainer": "Jarad Niemi <niemi@iastate.edu>",
-      "Suggests": [
-        "testthat"
-      ],
-      "Description": "The first day of any MMWR week is Sunday. MMWR week numbering is sequential beginning with 1 and incrementing with each week to a maximum of 52 or 53. MMWR week #1 of an MMWR year is the first week of the year that has at least four days in the calendar year. This package provides functionality to convert Dates to MMWR day, week, and year and the reverse.",
-      "License": "GPL (>= 2) | file LICENSE",
-      "LazyLoad": "yes",
-      "URL": "http://wwwn.cdc.gov/nndss/document/MMWR_Week_overview.pdf",
-      "RoxygenNote": "7.0.1",
-      "NeedsCompilation": "no",
-      "Repository": "CRAN"
-    },
     "Matrix": {
       "Package": "Matrix",
       "Version": "1.7-3",
@@ -528,53 +508,6 @@
       "Maintainer": "Winston Chang <winston@posit.co>",
       "Repository": "CRAN"
     },
-    "cdcfluview": {
-      "Package": "cdcfluview",
-      "Version": "1.0.0.9000",
-      "Source": "GitHub",
-      "Type": "Package",
-      "Encoding": "UTF-8",
-      "Title": "Retrieve Flu Season Data from the United States Centers for Disease Control and Prevention ('CDC') 'FluView' Portal",
-      "Date": "2022-11-22",
-      "Authors@R": "c( person(\"Bob\", \"Rudis\", email = \"bob@rud.is\", role = c(\"aut\", \"cre\"),  comment = c(ORCID = \"0000-0001-5670-2640\")), person(\"Craig\", \"McGowan\", email = \"mcgowan.cj@gmail.com\", role = \"ctb\", comment = c(ORCID = \"0000-0002-6298-0185\")), person(\"JJ\", \"Chen\", email = \"jiajia.chern@gmail.com\", role = \"ctb\", comment = c(ORCID = \"0000-0001-8482-8398\")), person(\"Sebastian\", \"Meyer\", email = \"seb.meyer@fau.de\", role = \"ctb\", comment = c(ORCID = \"0000-0002-1791-9449\")), person(\"James\", \"Turtle\", email = \"jturtle@predsci.com\", role = \"ctb\", comment = c(ORCID = \"0000-0003-0735-7769\")), person(\"Andrew\", \"Bates\", role = \"ctb\"), person(\"Ian\", \"McGovern\", role = \"ctb\") )",
-      "Maintainer": "Bob Rudis <bob@rud.is>",
-      "Description": "The 'U.S.' Centers for Disease Control and Prevention (CDC) maintain a portal <https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html> for accessing state, regional and national influenza statistics as well as mortality surveillance data. The web interface makes it difficult and time-consuming to select and retrieve influenza data. Tools are provided  to access the data provided by the portal's underlying 'API'.",
-      "URL": "https://github.com/hrbrmstr/cdcfluview",
-      "BugReports": "https://github.com/hrbrmstr/cdcfluview/issues",
-      "License": "MIT + file LICENSE",
-      "LazyData": "true",
-      "Suggests": [
-        "testthat",
-        "covr"
-      ],
-      "Depends": [
-        "R (>= 3.5.0)"
-      ],
-      "Imports": [
-        "httr",
-        "progress",
-        "tools",
-        "dplyr",
-        "jsonlite",
-        "tibble",
-        "stats",
-        "utils",
-        "sf",
-        "xml2",
-        "purrr",
-        "readr",
-        "MMWRweek",
-        "units (>= 0.4-6)"
-      ],
-      "RoxygenNote": "7.2.1",
-      "Author": "Bob Rudis [aut, cre] (ORCID: <https://orcid.org/0000-0001-5670-2640>), Craig McGowan [ctb] (ORCID: <https://orcid.org/0000-0002-6298-0185>), JJ Chen [ctb] (ORCID: <https://orcid.org/0000-0001-8482-8398>), Sebastian Meyer [ctb] (ORCID: <https://orcid.org/0000-0002-1791-9449>), James Turtle [ctb] (ORCID: <https://orcid.org/0000-0003-0735-7769>), Andrew Bates [ctb], Ian McGovern [ctb]",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "hrbrmstr",
-      "RemoteRepo": "cdcfluview",
-      "RemoteRef": "master",
-      "RemoteSha": "60ffe50553371148e962daf5559fce8270ce3fdd"
-    },
     "checkmate": {
       "Package": "checkmate",
       "Version": "2.3.2",
@@ -780,37 +713,6 @@
       "NeedsCompilation": "no",
       "Author": "Matthew Lincoln [aut, cre] (<https://orcid.org/0000-0002-4387-3384>), Louis Maddox [ctb], Steve Simpson [ctb], Jennifer Bryan [ctb]",
       "Maintainer": "Matthew Lincoln <matthew.d.lincoln@gmail.com>",
-      "Repository": "CRAN"
-    },
-    "countrycode": {
-      "Package": "countrycode",
-      "Version": "1.6.1",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Convert Country Names and Country Codes",
-      "Authors@R": "c(person(given = \"Vincent\", family = \"Arel-Bundock\", role = c(\"aut\", \"cre\"), email = \"vincent.arel-bundock@umontreal.ca\", comment = c(ORCID = \"0000-0003-2042-7063\")), person(given = \"CJ\", family = \"Yetman\", role = \"ctb\", email = \"cj@cjyetman.com\", comment = c(ORCID = \"0000-0001-5099-9500\")), person(given = \"Nils\", family = \"Enevoldsen\", role = \"ctb\", email = \"nils@wlonk.com\", comment = c(ORCID = \"0000-0001-7195-4117\")), person(\"Etienne\", \"Bacher\", email = \"etienne.bacher@protonmail.com\", role = \"ctb\", comment = c(ORCID = \"0000-0002-9271-5075\")), person(given = \"Samuel\", family = \"Meichtry\", role = \"ctb\", email = \"samuel.meichtry@bj.admin.ch\", comment = c(ORCID = \"0000-0003-2165-791X\")))",
-      "Description": "Standardize country names, convert them into one of 40 different coding schemes, convert between coding schemes, and assign region descriptors.",
-      "License": "GPL-3",
-      "URL": "https://vincentarelbundock.github.io/countrycode/",
-      "BugReports": "https://github.com/vincentarelbundock/countrycode/issues",
-      "Depends": [
-        "R (>= 2.10)"
-      ],
-      "Suggests": [
-        "altdoc",
-        "eurostat",
-        "testthat",
-        "tibble",
-        "ISOcodes",
-        "utf8"
-      ],
-      "Encoding": "UTF-8",
-      "LazyData": "yes",
-      "LazyLoad": "yes",
-      "RoxygenNote": "7.3.2",
-      "NeedsCompilation": "no",
-      "Author": "Vincent Arel-Bundock [aut, cre] (<https://orcid.org/0000-0003-2042-7063>), CJ Yetman [ctb] (<https://orcid.org/0000-0001-5099-9500>), Nils Enevoldsen [ctb] (<https://orcid.org/0000-0001-7195-4117>), Etienne Bacher [ctb] (<https://orcid.org/0000-0002-9271-5075>), Samuel Meichtry [ctb] (<https://orcid.org/0000-0003-2165-791X>)",
-      "Maintainer": "Vincent Arel-Bundock <vincent.arel-bundock@umontreal.ca>",
       "Repository": "CRAN"
     },
     "cpp11": {
@@ -2108,52 +2010,6 @@
       "Maintainer": "Lionel Henry <lionel@posit.co>",
       "Repository": "CRAN"
     },
-    "lubridate": {
-      "Package": "lubridate",
-      "Version": "1.9.4",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Make Dealing with Dates a Little Easier",
-      "Authors@R": "c( person(\"Vitalie\", \"Spinu\", , \"spinuvit@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Garrett\", \"Grolemund\", role = \"aut\"), person(\"Hadley\", \"Wickham\", role = \"aut\"), person(\"Davis\", \"Vaughan\", role = \"ctb\"), person(\"Ian\", \"Lyttle\", role = \"ctb\"), person(\"Imanuel\", \"Costigan\", role = \"ctb\"), person(\"Jason\", \"Law\", role = \"ctb\"), person(\"Doug\", \"Mitarotonda\", role = \"ctb\"), person(\"Joseph\", \"Larmarange\", role = \"ctb\"), person(\"Jonathan\", \"Boiser\", role = \"ctb\"), person(\"Chel Hee\", \"Lee\", role = \"ctb\") )",
-      "Maintainer": "Vitalie Spinu <spinuvit@gmail.com>",
-      "Description": "Functions to work with date-times and time-spans: fast and user friendly parsing of date-time data, extraction and updating of components of a date-time (years, months, days, hours, minutes, and seconds), algebraic manipulation on date-time and time-span objects. The 'lubridate' package has a consistent and memorable syntax that makes working with dates easy and fun.",
-      "License": "GPL (>= 2)",
-      "URL": "https://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate",
-      "BugReports": "https://github.com/tidyverse/lubridate/issues",
-      "Depends": [
-        "methods",
-        "R (>= 3.2)"
-      ],
-      "Imports": [
-        "generics",
-        "timechange (>= 0.3.0)"
-      ],
-      "Suggests": [
-        "covr",
-        "knitr",
-        "rmarkdown",
-        "testthat (>= 2.1.0)",
-        "vctrs (>= 0.6.5)"
-      ],
-      "Enhances": [
-        "chron",
-        "data.table",
-        "timeDate",
-        "tis",
-        "zoo"
-      ],
-      "VignetteBuilder": "knitr",
-      "Config/Needs/website": "tidyverse/tidytemplate",
-      "Config/testthat/edition": "3",
-      "Encoding": "UTF-8",
-      "LazyData": "true",
-      "RoxygenNote": "7.2.3",
-      "SystemRequirements": "C++11, A system with zoneinfo data (e.g. /usr/share/zoneinfo). On Windows the zoneinfo included with R is used.",
-      "Collate": "'Dates.r' 'POSIXt.r' 'util.r' 'parse.r' 'timespans.r' 'intervals.r' 'difftimes.r' 'durations.r' 'periods.r' 'accessors-date.R' 'accessors-day.r' 'accessors-dst.r' 'accessors-hour.r' 'accessors-minute.r' 'accessors-month.r' 'accessors-quarter.r' 'accessors-second.r' 'accessors-tz.r' 'accessors-week.r' 'accessors-year.r' 'am-pm.r' 'time-zones.r' 'numeric.r' 'coercion.r' 'constants.r' 'cyclic_encoding.r' 'data.r' 'decimal-dates.r' 'deprecated.r' 'format_ISO8601.r' 'guess.r' 'hidden.r' 'instants.r' 'leap-years.r' 'ops-addition.r' 'ops-compare.r' 'ops-division.r' 'ops-integer-division.r' 'ops-m+.r' 'ops-modulo.r' 'ops-multiplication.r' 'ops-subtraction.r' 'package.r' 'pretty.r' 'round.r' 'stamp.r' 'tzdir.R' 'update.r' 'vctrs.R' 'zzz.R'",
-      "NeedsCompilation": "yes",
-      "Author": "Vitalie Spinu [aut, cre], Garrett Grolemund [aut], Hadley Wickham [aut], Davis Vaughan [ctb], Ian Lyttle [ctb], Imanuel Costigan [ctb], Jason Law [ctb], Doug Mitarotonda [ctb], Joseph Larmarange [ctb], Jonathan Boiser [ctb], Chel Hee Lee [ctb]",
-      "Repository": "CRAN"
-    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.3",
@@ -2321,41 +2177,6 @@
       "NeedsCompilation": "no",
       "Repository": "CRAN"
     },
-    "oai": {
-      "Package": "oai",
-      "Version": "0.4.0",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "General Purpose 'Oai-PMH' Services Client",
-      "Description": "A general purpose client to work with any 'OAI-PMH' (Open Archives Initiative Protocol for 'Metadata' Harvesting) service. The 'OAI-PMH' protocol is described at <http://www.openarchives.org/OAI/openarchivesprotocol.html>. Functions are provided to work with the 'OAI-PMH' verbs: 'GetRecord', 'Identify', 'ListIdentifiers', 'ListMetadataFormats', 'ListRecords', and 'ListSets'.",
-      "License": "MIT + file LICENSE",
-      "Authors@R": "c( person(\"Scott\", \"Chamberlain\", role = \"aut\", email = \"myrmecocystus@gmail.com\"), person(\"Michal\", \"Bojanowski\", role = c(\"aut\", \"cre\"), email = \"michal2992@gmail.com\", comment=c(ORCID=\"0000-0001-7503-852X\")), person(\"National Science Centre\", role = \"fnd\", comment = \"Supported MB through grant 2012/07/D/HS6/01971, <https://ncn.gov.pl>\") )",
-      "URL": "https://docs.ropensci.org/oai/, https://github.com/ropensci/oai",
-      "BugReports": "https://github.com/ropensci/oai/issues",
-      "VignetteBuilder": "knitr",
-      "LazyData": "true",
-      "Encoding": "UTF-8",
-      "Imports": [
-        "xml2 (>= 1.0.0)",
-        "httr (>= 1.2.0)",
-        "plyr (>= 1.8.4)",
-        "stringr (>= 1.1.0)",
-        "tibble (>= 1.2)"
-      ],
-      "Suggests": [
-        "DBI",
-        "knitr",
-        "RSQLite",
-        "testthat",
-        "markdown",
-        "covr"
-      ],
-      "RoxygenNote": "7.2.1",
-      "NeedsCompilation": "no",
-      "Author": "Scott Chamberlain [aut], Michal Bojanowski [aut, cre] (<https://orcid.org/0000-0001-7503-852X>), National Science Centre [fnd] (Supported MB through grant 2012/07/D/HS6/01971, <https://ncn.gov.pl>)",
-      "Maintainer": "Michal Bojanowski <michal2992@gmail.com>",
-      "Repository": "CRAN"
-    },
     "odin": {
       "Package": "odin",
       "Version": "1.2.7",
@@ -2508,43 +2329,6 @@
       "BugReports": "https://github.com/r-lib/pkgconfig/issues",
       "Encoding": "UTF-8",
       "NeedsCompilation": "no",
-      "Repository": "CRAN"
-    },
-    "plyr": {
-      "Package": "plyr",
-      "Version": "1.8.9",
-      "Source": "Repository",
-      "Title": "Tools for Splitting, Applying and Combining Data",
-      "Authors@R": "person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = c(\"aut\", \"cre\"))",
-      "Description": "A set of tools that solves a common set of problems: you need to break a big problem down into manageable pieces, operate on each piece and then put all the pieces back together.  For example, you might want to fit a model to each spatial location or time point in your study, summarise data by panels or collapse high-dimensional arrays to simpler summary statistics. The development of 'plyr' has been generously supported by 'Becton Dickinson'.",
-      "License": "MIT + file LICENSE",
-      "URL": "http://had.co.nz/plyr, https://github.com/hadley/plyr",
-      "BugReports": "https://github.com/hadley/plyr/issues",
-      "Depends": [
-        "R (>= 3.1.0)"
-      ],
-      "Imports": [
-        "Rcpp (>= 0.11.0)"
-      ],
-      "Suggests": [
-        "abind",
-        "covr",
-        "doParallel",
-        "foreach",
-        "iterators",
-        "itertools",
-        "tcltk",
-        "testthat"
-      ],
-      "LinkingTo": [
-        "Rcpp"
-      ],
-      "Encoding": "UTF-8",
-      "LazyData": "true",
-      "RoxygenNote": "7.2.3",
-      "NeedsCompilation": "yes",
-      "Author": "Hadley Wickham [aut, cre]",
-      "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
       "Repository": "CRAN"
     },
     "prettyunits": {
@@ -3224,51 +3008,6 @@
       "Maintainer": "Edzer Pebesma <edzer.pebesma@uni-muenster.de>",
       "Repository": "CRAN"
     },
-    "socialmixr": {
-      "Package": "socialmixr",
-      "Version": "0.4.0",
-      "Source": "Repository",
-      "Title": "Social Mixing Matrices for Infectious Disease Modelling",
-      "Authors@R": "c( person(\"Sebastian\", \"Funk\", , \"sebastian.funk@lshtm.ac.uk\", role = c(\"aut\", \"cre\")), person(\"Lander\", \"Willem\", role = \"aut\"), person(\"Hugo\", \"Gruson\", role = \"aut\"), person(\"Maria\", \"Bekker-Nielsen Dunbar\", role = \"ctb\"), person(\"Carl A. B.\", \"Pearson\", role = \"ctb\"), person(\"Sam\", \"Clifford\", , \"sj.clifford@gmail.com\", role = \"ctb\"), person(\"Christopher\", \"Jarvis\", role = \"ctb\"), person(\"Alexis\", \"Robert\", , \"alexis.robert@lshtm.ac.uk\", role = \"ctb\"), person(\"Niel\", \"Hens\", role = \"ctb\"), person(\"Pietro\", \"Coletti\", role = c(\"col\", \"dtm\")) )",
-      "Description": "Provides methods for sampling contact matrices from diary data for use in infectious disease modelling, as discussed in Mossong et al. (2008) <doi:10.1371/journal.pmed.0050074>.",
-      "License": "MIT + file LICENSE",
-      "Depends": [
-        "R (>= 3.5.0)"
-      ],
-      "Imports": [
-        "countrycode",
-        "curl",
-        "data.table",
-        "grDevices",
-        "httr",
-        "jsonlite",
-        "lubridate",
-        "memoise",
-        "oai",
-        "wpp2017",
-        "xml2"
-      ],
-      "Suggests": [
-        "ggplot2",
-        "here",
-        "knitr",
-        "purrr",
-        "reshape2",
-        "rmarkdown",
-        "roxyglobals (>= 1.0.0)",
-        "testthat"
-      ],
-      "VignetteBuilder": "knitr",
-      "Encoding": "UTF-8",
-      "LazyData": "true",
-      "NeedsCompilation": "no",
-      "RoxygenNote": "7.3.2",
-      "URL": "https://github.com/epiforecasts/socialmixr, https://epiforecasts.io/socialmixr/",
-      "BugReports": "https://github.com/epiforecasts/socialmixr/issues",
-      "Author": "Sebastian Funk [aut, cre], Lander Willem [aut], Hugo Gruson [aut], Maria Bekker-Nielsen Dunbar [ctb], Carl A. B. Pearson [ctb], Sam Clifford [ctb], Christopher Jarvis [ctb], Alexis Robert [ctb], Niel Hens [ctb], Pietro Coletti [col, dtm]",
-      "Maintainer": "Sebastian Funk <sebastian.funk@lshtm.ac.uk>",
-      "Repository": "CRAN"
-    },
     "stringi": {
       "Package": "stringi",
       "Version": "1.8.7",
@@ -3613,34 +3352,6 @@
       "NeedsCompilation": "no",
       "Author": "Kyle Walker [aut, cre], Bob Rudis [ctb]",
       "Maintainer": "Kyle Walker <kyle@walker-data.com>",
-      "Repository": "CRAN"
-    },
-    "timechange": {
-      "Package": "timechange",
-      "Version": "0.3.0",
-      "Source": "Repository",
-      "Title": "Efficient Manipulation of Date-Times",
-      "Authors@R": "c(person(\"Vitalie\", \"Spinu\", email = \"spinuvit@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Google Inc.\", role = c(\"ctb\", \"cph\")))",
-      "Description": "Efficient routines for manipulation of date-time objects while accounting for time-zones and daylight saving times. The package includes utilities for updating of date-time components (year, month, day etc.), modification of time-zones, rounding of date-times, period addition and subtraction etc. Parts of the 'CCTZ' source code, released under the Apache 2.0 License, are included in this package. See <https://github.com/google/cctz> for more details.",
-      "Depends": [
-        "R (>= 3.3)"
-      ],
-      "License": "GPL (>= 3)",
-      "Encoding": "UTF-8",
-      "LinkingTo": [
-        "cpp11 (>= 0.2.7)"
-      ],
-      "Suggests": [
-        "testthat (>= 0.7.1.99)",
-        "knitr"
-      ],
-      "SystemRequirements": "A system with zoneinfo data (e.g. /usr/share/zoneinfo) as well as a recent-enough C++11 compiler (such as g++-4.8 or later). On Windows the zoneinfo included with R is used.",
-      "BugReports": "https://github.com/vspinu/timechange/issues",
-      "URL": "https://github.com/vspinu/timechange/",
-      "RoxygenNote": "7.2.1",
-      "NeedsCompilation": "yes",
-      "Author": "Vitalie Spinu [aut, cre], Google Inc. [ctb, cph]",
-      "Maintainer": "Vitalie Spinu <spinuvit@gmail.com>",
       "Repository": "CRAN"
     },
     "tinytex": {
@@ -4001,26 +3712,6 @@
       "LazyData": "true",
       "NeedsCompilation": "yes",
       "Author": "Dewey Dunnington [aut, cre] (<https://orcid.org/0000-0002-9415-4582>), Edzer Pebesma [aut] (<https://orcid.org/0000-0001-8049-7069>), Anthony North [ctb]",
-      "Repository": "CRAN"
-    },
-    "wpp2017": {
-      "Package": "wpp2017",
-      "Version": "1.2-3",
-      "Source": "Repository",
-      "Date": "2020-2-7",
-      "Title": "World Population Prospects 2017",
-      "Author": "United Nations Population Division",
-      "Maintainer": "Hana Sevcikova <hanas@uw.edu>",
-      "Depends": [
-        "R (>= 2.14.2)"
-      ],
-      "Imports": [
-        "data.table"
-      ],
-      "Description": "Provides data from the United Nation's World Population Prospects 2017.",
-      "License": "GPL (>= 2)",
-      "URL": "http://population.un.org/wpp",
-      "NeedsCompilation": "no",
       "Repository": "CRAN"
     },
     "xfun": {
